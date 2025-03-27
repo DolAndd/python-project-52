@@ -7,5 +7,6 @@ build:
 render-start:
 	gunicorn task_manager.wsgi
 
+.PHONY: install
 install:
-	uv sync
+	@uv sync
