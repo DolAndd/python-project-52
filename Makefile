@@ -10,3 +10,9 @@ render-start:
 .PHONY: install
 install:
 	@uv sync
+
+lint:
+	uv run ruff check .
+
+fix:
+	uv run ruff check --fix .
