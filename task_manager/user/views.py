@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.views.generic import ListView, CreateView, DetailView, DeleteView, UpdateView
+from django.views.generic import ListView, CreateView, DeleteView, UpdateView
+from task_manager.user.forms import UserRegistrationForm
 
 
 # Create your views here.
@@ -10,19 +11,12 @@ class IndexView(ListView):
     context_object_name = 'users'
 # если не указывать, имя переменной в шаблоне (по умолчанию: `object_list` ('user_list'))
 
+
 class UserCreate(CreateView):
     model = User
-    form_class = ArticleForm
-    template_name = 'articles/create.html'
+    fields = ["username", "first_name", "last_name", "password",]
+    template_name = 'user/create.html'
+    success_url = '/users/'
 
 
-class UserUpdate(UpdateView):
-    model = User
-    form_class = ArticleForm
-    template_name = 'articles/update.html'
 
-
-class UserDelete(DeleteView):
-    model = User
-    success_url = reverse_lazy('articles:index')
-    template_name = 'articles/delete.html'

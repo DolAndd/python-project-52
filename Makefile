@@ -16,3 +16,7 @@ lint:
 
 fix:
 	uv run ruff check --fix .
+
+migrate:
+	uv run python3 manage.py migrate
+

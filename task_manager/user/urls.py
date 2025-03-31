@@ -5,5 +5,5 @@ app_name = 'user'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='user_index'),
-
+    path('create/', views.UserCreate.as_view(), name='user_create'),
 ]
