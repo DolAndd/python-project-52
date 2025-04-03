@@ -1,5 +1,5 @@
 dev:
-	python3 manage.py runserver
+	uv run python3 manage.py runserver
 
 build:
 	./build.sh

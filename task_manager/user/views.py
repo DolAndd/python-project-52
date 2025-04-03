@@ -16,7 +16,7 @@ class UserCreateView(CreateView):
     model = User
     form_class = UserRegistrationForm
     template_name = 'user/create.html'
-    success_url = '/users/'
+    success_url = '/login/'
 
 
 class UserUpdateView(UpdateView):

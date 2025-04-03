@@ -26,5 +26,6 @@ urlpatterns = [
         template_name='login.html',
         redirect_authenticated_user=True
     ), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
 ]
