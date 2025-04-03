@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from task_manager.user.forms import UserRegistrationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from task_manager.mixins import UserPassesMixin
+
 
 
 # Create your views here.
@@ -19,14 +22,14 @@ class UserCreateView(CreateView):
     success_url = '/login/'
 
 
-class UserUpdateView(UpdateView):
+class UserUpdateView(LoginRequiredMixin, UserPassesMixin, UpdateView):
     model = User
     form_class = UserRegistrationForm
     template_name = 'user/update.html'
     success_url = '/users/'
 
 
-class UserDeleteView(DeleteView):
+class UserDeleteView(LoginRequiredMixin, UserPassesMixin, DeleteView):
     model = User
     template_name = 'user/delete.html'
     success_url = '/users/'

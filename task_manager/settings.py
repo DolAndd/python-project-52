@@ -62,6 +62,7 @@ ROOT_URLCONF = 'task_manager.urls'
 
 LOGIN_REDIRECT_URL = '/'  # После успешного входа
 LOGOUT_REDIRECT_URL = '/'
+LOGIN_URL = '/login/'
 
 TEMPLATES = [
     {
