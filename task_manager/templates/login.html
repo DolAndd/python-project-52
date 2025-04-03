@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+
+{% load django_bootstrap5 %}
+
+{% block content %}
+<div class="container wrapper flex-grow-1">
+      <h1 class="my-4">Вход</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% bootstrap_button "Войти" button_type="submit" button_class="btn-primary" %}
+    </form>
+{% endblock %}
