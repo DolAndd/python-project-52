@@ -55,7 +55,14 @@
           {% endif %}
       </div>
     </nav>
+    <div class="container wrapper flex-grow-1">
+    {% if messages %}
+            {% for message in messages %}
+                {% bootstrap_messages %}
+            {% endfor %}
+    {% endif %}
 {% block content %}{% endblock %}
+    </div>
     <footer>
       <div class="container my-5 pt-4 border-top">
         <a target="_blank" href="https://ru.hexlet.io">Hexlet</a>
