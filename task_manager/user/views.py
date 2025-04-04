@@ -22,14 +22,14 @@ class UserCreateView(CreateView):
     success_url = '/login/'
 
 
-class UserUpdateView(LoginRequiredMixin, UserPassesMixin, UpdateView):
+class UserUpdateView(UserPassesMixin, UpdateView):
     model = User
     form_class = UserRegistrationForm
     template_name = 'user/update.html'
     success_url = '/users/'
 
 
-class UserDeleteView(LoginRequiredMixin, UserPassesMixin, DeleteView):
+class UserDeleteView(UserPassesMixin, DeleteView):
     model = User
     template_name = 'user/delete.html'
     success_url = '/users/'

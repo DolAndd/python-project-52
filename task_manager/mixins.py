@@ -7,5 +7,7 @@ class UserPassesMixin(UserPassesTestMixin):
         return self.request.user == self.get_object()
 
     def handle_no_permission(self):
+        if not self.request.user.is_authenticated:
+            return redirect('login')
         return redirect("user_index")
 

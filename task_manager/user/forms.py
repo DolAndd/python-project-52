@@ -13,3 +13,11 @@ class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ["first_name", "last_name", "username", "password1", "password2"]
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        # Исключаем текущего пользователя из проверки в случае редактирования пользователя
+        if User.objects.exclude(pk=self.instance.pk).filter(username=username).exists():
+            raise forms.ValidationError("Пользователь с таким именем уже существует")
+        # выдает ошибку в случае создания нового пользователя с таким же username
+        return username
