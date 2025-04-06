@@ -1,10 +1,7 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from task_manager.user.forms import UserRegistrationForm
-from django.contrib.auth.mixins import LoginRequiredMixin
 from task_manager.mixins import UserPassesMixin
-
 
 
 # Create your views here.

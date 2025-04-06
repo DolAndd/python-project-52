@@ -1,6 +1,6 @@
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
-from django.urls import reverse_lazy
+
 
 
 class UserLoginView(LoginView):

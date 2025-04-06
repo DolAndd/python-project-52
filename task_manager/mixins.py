@@ -11,5 +11,6 @@ class UserPassesMixin(UserPassesTestMixin):
         if not self.request.user.is_authenticated:
             messages.error(self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
             return redirect('login')
+        messages.error(self.request, 'У вас нет прав для изменения другого пользователя.')
         return redirect("user_index")
 
