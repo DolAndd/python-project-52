@@ -1,13 +1,55 @@
-from django.shortcuts import render
 from task_manager.statuses.models import Status
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from task_manager.user.forms import UserRegistrationForm
-from task_manager.mixins import UserPassesMixin
+from task_manager.mixins import UserLoginMixin
+from task_manager.statuses.forms import StatusForm
+from django.contrib import messages
+from django.urls import reverse_lazy
 
 
 # Create your views here.
-class StatusIndexView(ListView):
+class StatusIndexView(UserLoginMixin, ListView):
     model = Status
     template_name = 'statuses/index.html'
     context_object_name = 'statuses'
 # Create your views here.
+
+
+class StatusCreateView(UserLoginMixin, CreateView):
+    model = Status
+    form_class = StatusForm
+    template_name = 'statuses/create.html'
+    success_url = reverse_lazy('status_index')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            'Статус успешно создан'
+        )
+        return super().form_valid(form)
+
+
+class StatusUpdateView(UserLoginMixin, UpdateView):
+    model = Status
+    form_class = StatusForm
+    template_name = 'statuses/update.html'
+    success_url = reverse_lazy('status_index')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            'Статус успешно изменен'
+        )
+        return super().form_valid(form)
+
+
+class StatusDeleteView(UserLoginMixin, DeleteView):
+    model = Status
+    template_name = 'statuses/delete.html'
+    success_url = reverse_lazy('status_index')
+
+    def form_valid(self, form):
+        messages.success(
+            self.request,
+            'Статус успешно удален'
+        )
+        return super().form_valid(form)

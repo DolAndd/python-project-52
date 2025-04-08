@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.shortcuts import redirect
 from django.contrib import messages
 
@@ -14,3 +14,10 @@ class UserPassesMixin(UserPassesTestMixin):
         messages.error(self.request, 'У вас нет прав для изменения другого пользователя.')
         return redirect("user_index")
 
+
+class UserLoginMixin(LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            messages.error(request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            return self.handle_no_permission()
+        return super().dispatch(request, *args, **kwargs)
