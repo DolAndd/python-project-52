@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 
 
 # Create your models here.
-class Tasks(models.Model):
+class Task(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name=_("Имя"))
     description = models.TextField(blank=True, verbose_name=_("Описание"))
     status = models.ForeignKey(Status, on_delete=models.PROTECT, verbose_name=_("Статус"))
