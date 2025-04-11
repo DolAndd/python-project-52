@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
+{% load django_bootstrap5 %}
 
 {% block content %}
 
@@ -8,6 +9,25 @@
       </h1>
 
 <a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Создать задачу</a>
+
+<form method="get" class="mb-4">
+        <div class="row g-3">
+            <div class="col-md-4">
+                {% bootstrap_field filter.form.status show_label=True %}
+            </div>
+            <div class="col-md-4">
+                {% bootstrap_field filter.form.executor show_label=True %}
+            </div>
+            <div class="col-md-4">
+                {% bootstrap_field filter.form.labels show_label=True %}
+            </div>
+        </div>
+
+        <div class="mt-3">
+            {% bootstrap_button "Применить фильтр" button_type="submit" button_class="btn-primary me-2" %}
+            <a href="?" class="btn btn-outline-secondary">Сбросить</a>
+        </div>
+    </form>
 
 <table class="table table-striped">
   <thead>
@@ -25,10 +45,12 @@
   {% for task in tasks %}
       <tr>
         <td>{{ task.id }}</td>
-        <td>{{ task.name }}</td>
+        <td><a href="{% url 'task_detail' task.id %}">{{ task.name }}</a></td>
         <td>{{ task.status }}</td>
-        <td>{{ task.author }}</td>
-        <td>{{ task.executor }}</td>
+        <td>{{ task.author.first_name }} {{ task.author.last_name }}</td>
+        <td>{% if task.executor %}
+        {{ task.executor.first_name }} {{ task.executor.last_name }}
+        {% endif %}</td>
         <td>{{ user.date_joined|date:"d.m.Y H:i" }}</td>
         <td>
           <a href="{% url 'task_update' task.id %}">Изменить</a>

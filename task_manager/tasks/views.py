@@ -4,13 +4,22 @@ from task_manager.mixins import UserLoginMixin
 from task_manager.tasks.forms import TaskForm
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from django_filters.views import FilterView
+from .filters import TaskFilter
 
 
 # Create your views here.
-class TaskIndexView(UserLoginMixin, ListView):
+class TaskIndexView(UserLoginMixin, FilterView):
     model = Task
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
+    filterset_class = TaskFilter
+    paginate_by = 25
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.select_related('status', 'executor', 'author').prefetch_related('labels')
 # Create your views here.
 
 
@@ -47,6 +56,17 @@ class TaskDeleteView(UserLoginMixin, DeleteView):
     model = Task
     template_name = 'tasks/delete.html'
     success_url = reverse_lazy('task_index')
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # Проверяем, является ли текущий пользователь автором задачи
+        if self.object.author != request.user:
+            messages.error(
+                self.request,
+                'Задачу может удалить только ее автор'
+            )
+            return redirect('task_index')
+        return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         messages.success(

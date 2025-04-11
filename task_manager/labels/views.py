@@ -4,6 +4,7 @@ from task_manager.mixins import UserLoginMixin
 from task_manager.labels.forms import LabelsForm
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -48,6 +49,13 @@ class LabelsDeleteView(UserLoginMixin, DeleteView):
     success_url = reverse_lazy('label_index')
 
     def form_valid(self, form):
+        label = self.get_object()
+        if label.task_set.exists():  # Проверяем, есть ли связанные задачи
+            messages.error(
+                self.request,
+                'Невозможно удалить метку, потому что она используется'
+            )
+            return redirect('label_index')
         messages.success(
             self.request,
             'Метка успешно удалена'

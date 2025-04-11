@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+
+{% block content %}
+
+      <h1 class="my-4">Просмотр задачи</h1>
+
+<div class="card">
+  <div class="card-header bg-secondary text-white">
+    <h2>{{ object.name }}</h2>
+  </div>
+  <div class="card-body bg-light">
+    <p>{{ object.description }}</p>
+    <hr>
+    <div class="container">
+      <div class="row p-1">
+        <div class="col">Автор</div>
+        <div class="col">{{ object.author }}</div>
+      </div>
+      <div class="row p-1">
+        <div class="col">Исполнитель</div>
+        <div class="col">
+          {% if object.executor %}
+          {{ object.executor }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="row p-1">
+        <div class="col">Статус</div>
+        <div class="col">{{ object.status }}</div>
+      </div>
+      <div class="row p-1">
+        <div class="col">Дата создания</div>
+        <div class="col">14.03.2025 04:33</div>
+      </div>
+      <div class="row p-1">
+        <div class="col">
+          <h6>Метки:</h6>
+          {% if object.labels.all %}
+          <ul>
+          {% for label in object.labels.all %}
+            <li>{{ label }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+
+        </div>
+      </div>
+      <div class="row p-1">
+        <div class="col">
+          <a href="{% url 'task_update' object.id %}">Изменить</a>
+          <br>
+          <a href="{% url 'task_delete' object.id %}">Удалить</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+
+{% endblock %}
