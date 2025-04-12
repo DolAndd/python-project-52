@@ -4,6 +4,7 @@ from task_manager.mixins import UserLoginMixin
 from task_manager.statuses.forms import StatusForm
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.shortcuts import redirect
 
 
 # Create your views here.
@@ -48,6 +49,13 @@ class StatusDeleteView(UserLoginMixin, DeleteView):
     success_url = reverse_lazy('status_index')
 
     def form_valid(self, form):
+        status = self.get_object()
+        if status.task_set.exists():  # Проверяем, есть ли связанные задачи
+            messages.error(
+                self.request,
+                'Невозможно удалить статус, потому что он используется'
+            )
+            return redirect('status_index')
         messages.success(
             self.request,
             'Статус успешно удален'

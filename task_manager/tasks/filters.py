@@ -4,35 +4,48 @@ from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
 from django.contrib.auth.models import User
 from django import forms
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
 
 
 class TaskFilter(django_filters.FilterSet):
+
     status = django_filters.ModelChoiceFilter(
         queryset=Status.objects.all(),
         label='Статус',
         field_name='status',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        empty_label="--------"
     )
 
     executor = django_filters.ModelChoiceFilter(
-        queryset=User.objects.filter(is_active=True),
+        queryset=User.objects.all(),
         label='Исполнитель',
         field_name='executor',
-        widget=forms.Select(attrs={'class': 'form-control'}),
-        empty_label="--------"
     )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.form.fields["executor"].label_from_instance = lambda obj: f"{obj.first_name} {obj.last_name}"
+
+    def filter_by_labels(self, queryset, name, value):
+        return queryset
 
     labels = django_filters.ModelMultipleChoiceFilter(
         queryset=Label.objects.all(),
         label='Метка',
         field_name='labels',
-        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
     )
+
+    self_tasks = django_filters.BooleanFilter(
+        label='Только свои задачи',
+        method="filter_self_tasks",
+        widget=forms.CheckboxInput,
+    )
+
+    def filter_self_tasks(self, queryset, name, value):
+        if value and hasattr(self, "request"):
+            return queryset.filter(author=self.request.user)
+        return queryset
 
     class Meta:
         model = Task
         fields = []
+
+

@@ -15,12 +15,6 @@ class TaskIndexView(UserLoginMixin, FilterView):
     template_name = 'tasks/index.html'
     context_object_name = 'tasks'
     filterset_class = TaskFilter
-    paginate_by = 25
-
-    def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.select_related('status', 'executor', 'author').prefetch_related('labels')
-# Create your views here.
 
 
 class TaskCreateView(UserLoginMixin, CreateView):
