@@ -10,24 +10,17 @@
 
 <a href="{% url 'task_create' %}" class="btn btn-primary mb-3">Создать задачу</a>
 
-<form method="get" class="mb-4">
-        <div class="row g-3">
-            <div class="col-md-4">
-                {% bootstrap_field filter.form.status show_label=True %}
-            </div>
-            <div class="col-md-4">
-                {% bootstrap_field filter.form.executor show_label=True %}
-            </div>
-            <div class="col-md-4">
-                {% bootstrap_field filter.form.labels show_label=True %}
-            </div>
-        </div>
+<div class="card mb-3">
+  <div class="card-body bg-light">
+    <form class="form-inline center" method="get">
+        {% bootstrap_field filter.form.status show_label=True %}
+        {% bootstrap_field filter.form.executor show_label=True %}
+        {% bootstrap_field filter.form.labels show_label=True %}
+        {% bootstrap_button "Показать" button_type="submit" button_class="btn-primary me-2" %}
 
-        <div class="mt-3">
-            {% bootstrap_button "Применить фильтр" button_type="submit" button_class="btn-primary me-2" %}
-            <a href="?" class="btn btn-outline-secondary">Сбросить</a>
-        </div>
     </form>
+  </div>
+</div>
 
 <table class="table table-striped">
   <thead>

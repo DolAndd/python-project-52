@@ -15,7 +15,7 @@ class TaskFilter(django_filters.FilterSet):
         label='Статус',
         field_name='status',
         widget=forms.Select(attrs={'class': 'form-control'}),
-        empty_label="Все статусы"
+        empty_label="--------"
     )
 
     executor = django_filters.ModelChoiceFilter(
@@ -23,14 +23,14 @@ class TaskFilter(django_filters.FilterSet):
         label='Исполнитель',
         field_name='executor',
         widget=forms.Select(attrs={'class': 'form-control'}),
-        empty_label="Любой исполнитель"
+        empty_label="--------"
     )
 
     labels = django_filters.ModelMultipleChoiceFilter(
         queryset=Label.objects.all(),
-        label='Метки',
+        label='Метка',
         field_name='labels',
-        widget=forms.SelectMultiple(attrs={'class': 'form-control'})
+        widget=forms.SelectMultiple(attrs={'class': 'form-control'}),
     )
 
     class Meta:
