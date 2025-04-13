@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from task_manager.user.forms import UserRegistrationForm
-from task_manager.mixins import UserPassesMixin
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
+from task_manager.mixins import UserPassesMixin
+from task_manager.user.forms import UserRegistrationForm
 
 
 # Create your views here.
@@ -11,7 +12,8 @@ class IndexView(ListView):
     model = User
     template_name = 'user/index.html'
     context_object_name = 'users'
-# если не указывать, имя переменной в шаблоне (по умолчанию: `object_list` ('user_list'))
+# если не указывать, имя переменной в шаблоне
+# (по умолчанию: `object_list` ('user_list'))
 
 
 class UserCreateView(CreateView):

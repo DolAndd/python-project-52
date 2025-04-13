@@ -1,9 +1,11 @@
 import django_filters
-from .models import Task
+from django import forms
+from django.contrib.auth.models import User
+
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
-from django.contrib.auth.models import User
-from django import forms
+
+from .models import Task
 
 
 class TaskFilter(django_filters.FilterSet):
@@ -22,7 +24,8 @@ class TaskFilter(django_filters.FilterSet):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.form.fields["executor"].label_from_instance = lambda obj: f"{obj.first_name} {obj.last_name}"
+        self.form.fields["executor"].label_from_instance = lambda obj: \
+            f"{obj.first_name} {obj.last_name}"
 
     def filter_by_labels(self, queryset, name, value):
         return queryset

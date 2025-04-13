@@ -1,11 +1,18 @@
-from task_manager.tasks.models import Task
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.contrib import messages
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import (
+    CreateView,
+    DeleteView,
+    DetailView,
+    UpdateView,
+)
+from django_filters.views import FilterView
+
 from task_manager.mixins import UserLoginMixin
 from task_manager.tasks.forms import TaskForm
-from django.contrib import messages
-from django.urls import reverse_lazy
-from django.shortcuts import redirect
-from django_filters.views import FilterView
+from task_manager.tasks.models import Task
+
 from .filters import TaskFilter
 
 

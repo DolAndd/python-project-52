@@ -1,10 +1,11 @@
-from task_manager.labels.models import Label
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView
-from task_manager.mixins import UserLoginMixin
-from task_manager.labels.forms import LabelsForm
 from django.contrib import messages
-from django.urls import reverse_lazy
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+
+from task_manager.labels.forms import LabelsForm
+from task_manager.labels.models import Label
+from task_manager.mixins import UserLoginMixin
 
 
 # Create your views here.

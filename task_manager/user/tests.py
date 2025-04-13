@@ -1,20 +1,14 @@
+
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-from django.contrib.auth import get_user_model
-import json
+
 # Create your tests here.
 
 User = get_user_model()
 
 
 class UsersTest(TestCase):
-    # указываем имена фикстур для загрузки
-    fixtures = ['users.json']
-
-    def setUp(self):
-        # Получаем пользователя из фикстуры
-        self.existing_user = User.objects.get(username='Abius')
-
 
     def test_user_registration(self):
         url = reverse('user_create')
@@ -41,7 +35,8 @@ class UsersTest(TestCase):
             last_name='User',
             password='testpass123')
 
-        # 2. Авторизуем этого пользователя (так как право на удаление только у владельца)
+        # 2. Авторизуем этого пользователя
+        # (так как право на удаление только у владельца)
         self.client.force_login(user_to_update)
 
         # 3. Отправляем POST-запрос на удаление
@@ -74,7 +69,8 @@ class UsersTest(TestCase):
             password='testpass123'
         )
 
-        # 2. Авторизуем этого пользователя (так как право на удаление только у владельца)
+        # 2. Авторизуем этого пользователя
+        # (так как право на удаление только у владельца)
         self.client.force_login(user_to_delete)
 
         # 3. Отправляем POST-запрос на удаление
