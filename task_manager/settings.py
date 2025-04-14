@@ -143,20 +143,21 @@ ROLLBAR = {
 }
 
 # '456279e647834c35aaae0183d3a9c34d1f5290dd0a24a259f3bcc9862140d204fbba76fbc4a19e74927526ed3b06063c'
-rollbar.init(
-    access_token=ROLLBAR['access_token'],
-    environment=ROLLBAR['environment'],
-    root=ROLLBAR['root'],
-    handler='blocking',
-    locals={
-        'enabled': True,
-        'safe_repr': True,
-        'scrub_varargs': True,
-        'sizes': {
-            'locals': 100,
-            'request_data': 100,
-            'django_session': 100,
-            'django_request': 100,
+if not rollbar._initialized:
+    rollbar.init(
+        access_token=ROLLBAR['access_token'],
+        environment=ROLLBAR['environment'],
+        root=ROLLBAR['root'],
+        handler='blocking',
+        locals={
+            'enabled': True,
+            'safe_repr': True,
+            'scrub_varargs': True,
+            'sizes': {
+                'locals': 100,
+                'request_data': 100,
+                'django_session': 100,
+                'django_request': 100,
+            }
         }
-    }
-)
+    )
