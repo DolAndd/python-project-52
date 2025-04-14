@@ -20,3 +20,6 @@ fix:
 migrate:
 	uv run python3 manage.py migrate
 
+test:
+	uv run manage.py test
+
