@@ -14,6 +14,7 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 import dj_database_url
+import rollbar
 
 load_dotenv()
 
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -106,7 +108,7 @@ DATABASES['default'].update(db_from_env)
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-        'OPTIONS': {'min_length': 3,}
+        'OPTIONS': {'min_length': 3, }
     },
 ]
 
@@ -132,3 +134,29 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ROLLBAR = {
+    'access_token': os.getenv('ACCESS_TOKEN'),
+    'environment': 'development' if DEBUG else 'production',
+    'code_version': '1.0',
+    'root': BASE_DIR,
+}
+
+# '456279e647834c35aaae0183d3a9c34d1f5290dd0a24a259f3bcc9862140d204fbba76fbc4a19e74927526ed3b06063c'
+rollbar.init(
+    access_token=ROLLBAR['access_token'],
+    environment=ROLLBAR['environment'],
+    root=ROLLBAR['root'],
+    handler='blocking',
+    locals={
+        'enabled': True,
+        'safe_repr': True,
+        'scrub_varargs': True,
+        'sizes': {
+            'locals': 100,
+            'request_data': 100,
+            'django_session': 100,
+            'django_request': 100,
+        }
+    }
+)
