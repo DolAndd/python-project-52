@@ -23,3 +23,4 @@ migrate:
 test:
 	uv run manage.py test
 
+check: test lint
