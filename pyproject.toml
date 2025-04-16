@@ -23,6 +23,3 @@ dev = [
     "python-dotenv>=1.1.0",
     "ruff>=0.11.2",
 ]
-
-[tool.hatch.build.targets.wheel]
-packages = ["task_manager"]
