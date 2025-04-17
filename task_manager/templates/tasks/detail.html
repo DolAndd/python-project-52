@@ -16,13 +16,13 @@
     <div class="container">
       <div class="row p-1">
         <div class="col">Автор</div>
-        <div class="col">{{ object.author }}</div>
+        <div class="col">{{ object.author.first_name }} {{ object.author.last_name }}</div>
       </div>
       <div class="row p-1">
         <div class="col">Исполнитель</div>
         <div class="col">
           {% if object.executor %}
-          {{ object.executor }}
+          {{ object.executor.first_name }} {{ object.executor.last_name }}
           {% endif %}
         </div>
       </div>
