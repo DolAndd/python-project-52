@@ -156,6 +156,9 @@ class TaskIntegrationTests(TestCase):
         self.assertContains(response, self.task.name)
         self.assertContains(response, self.task.description)
         self.assertContains(response, self.task.status.name)
-        self.assertContains(response, self.task.author.username)
-        self.assertContains(response, self.task.executor.username)
+        self.assertContains(response, self.task.author.first_name)
+        self.assertContains(response, self.task.author.last_name)
+        if self.task.executor:
+            self.assertContains(response, self.task.executor.first_name)
+            self.assertContains(response, self.task.executor.last_name)
         self.assertContains(response, self.label.name)
