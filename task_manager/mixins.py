@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.shortcuts import redirect
+from django.utils.translation import gettext as _
 
 
 class UserPassesMixin(UserPassesTestMixin):
@@ -11,6 +12,7 @@ class UserPassesMixin(UserPassesTestMixin):
         if not self.request.user.is_authenticated:
             messages.error(
                 self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
+            # Вы не авторизованы! Пожалуйста, выполните вход.
             return redirect('login')
         messages.error(
             self.request, 'У вас нет прав для изменения другого пользователя.')

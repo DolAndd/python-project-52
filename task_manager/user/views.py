@@ -2,6 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.utils.translation import gettext as _
+from django.shortcuts import redirect
 
 from task_manager.mixins import UserPassesMixin
 from task_manager.user.forms import UserRegistrationForm
@@ -25,8 +27,9 @@ class UserCreateView(CreateView):
     def form_valid(self, form):
         messages.success(
             self.request,
-            'Пользователь успешно зарегистрирован'
+            _("User successfully registered")
         )
+        # Пользователь успешно зарегистрирован
         return super().form_valid(form)
 
 
@@ -39,8 +42,9 @@ class UserUpdateView(UserPassesMixin, UpdateView):
     def form_valid(self, form):
         messages.success(
             self.request,
-            'Пользователь успешно изменен'
+            _("User successfully updated")
         )
+        # Пользователь успешно изменен
         return super().form_valid(form)
 
 
@@ -50,8 +54,16 @@ class UserDeleteView(UserPassesMixin, DeleteView):
     success_url = reverse_lazy('user_index')
 
     def form_valid(self, form):
+        user = self.get_object()
+        if user.task_set.exists():  # Проверяем, есть ли связанные задачи
+            messages.error(
+                self.request,
+                _("Cannot delete user because they have associated tasks")
+            )
+            return redirect('user_index')
         messages.success(
             self.request,
-            'Пользователь успешно удален'
+            _("User successfully deleted")
         )
+        # Пользователь успешно удален
         return super().form_valid(form)

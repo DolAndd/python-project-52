@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.utils.translation import gettext as _
 
 from task_manager.labels.forms import LabelsForm
 from task_manager.labels.models import Label
@@ -25,8 +26,9 @@ class LabelsCreateView(UserLoginMixin, CreateView):
     def form_valid(self, form):
         messages.success(
             self.request,
-            'Метка успешно создана'
+            _("Label created successfully")
         )
+        # Метка успешно создана
         return super().form_valid(form)
 
 
@@ -39,8 +41,9 @@ class LabelsUpdateView(UserLoginMixin, UpdateView):
     def form_valid(self, form):
         messages.success(
             self.request,
-            'Метка успешно изменена'
+            _("Label changed successfully")
         )
+        # Метка успешно изменена
         return super().form_valid(form)
 
 
@@ -54,12 +57,14 @@ class LabelsDeleteView(UserLoginMixin, DeleteView):
         if label.task_set.exists():  # Проверяем, есть ли связанные задачи
             messages.error(
                 self.request,
-                'Невозможно удалить метку, потому что она используется'
+                _("Cannot delete a label because it is in use")
             )
+            # Невозможно удалить метку, потому что она используется
             return redirect('label_index')
         messages.success(
             self.request,
-            'Метка успешно удалена'
+            _("Label removed successfully")
         )
+        # Метка успешно удалена
         return super().form_valid(form)
 

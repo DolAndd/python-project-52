@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -34,8 +35,9 @@ class TaskCreateView(UserLoginMixin, CreateView):
         form.instance.author = self.request.user
         messages.success(
             self.request,
-            'Задача успешно создана'
+            _("Task successfully created")
         )
+        # Задача успешно создана
         return super().form_valid(form)
 
 
@@ -48,8 +50,9 @@ class TaskUpdateView(UserLoginMixin, UpdateView):
     def form_valid(self, form):
         messages.success(
             self.request,
-            'Задача успешно изменена'
+            _("Task successfully updated")
         )
+        # 'Задача успешно изменена'
         return super().form_valid(form)
 
 
@@ -64,16 +67,18 @@ class TaskDeleteView(UserLoginMixin, DeleteView):
         if self.object.author != request.user:
             messages.error(
                 self.request,
-                'Задачу может удалить только ее автор'
+                _("Only the author of the task can delete it")
             )
+            # Задачу может удалить только ее автор
             return redirect('task_index')
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         messages.success(
             self.request,
-            'Задача успешно удалена'
+            _("Task successfully deleted")
         )
+        # Задача успешно удалена
         return super().form_valid(form)
 
 

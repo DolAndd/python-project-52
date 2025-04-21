@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, ListView, UpdateView
+from django.utils.translation import gettext as _
 
 from task_manager.mixins import UserLoginMixin
 from task_manager.statuses.forms import StatusForm
@@ -25,8 +26,9 @@ class StatusCreateView(UserLoginMixin, CreateView):
     def form_valid(self, form):
         messages.success(
             self.request,
-            'Статус успешно создан'
+            _("Status created successfully")
         )
+        # Статус успешно создан
         return super().form_valid(form)
 
 
@@ -39,8 +41,9 @@ class StatusUpdateView(UserLoginMixin, UpdateView):
     def form_valid(self, form):
         messages.success(
             self.request,
-            'Статус успешно изменен'
+            _("Status changed successfully")
         )
+        # Статус успешно изменен
         return super().form_valid(form)
 
 
@@ -54,11 +57,13 @@ class StatusDeleteView(UserLoginMixin, DeleteView):
         if status.task_set.exists():  # Проверяем, есть ли связанные задачи
             messages.error(
                 self.request,
-                'Невозможно удалить статус, потому что он используется'
+                _("Cannot delete a status because it is in use")
             )
+            # Невозможно удалить статус, потому что он используется
             return redirect('status_index')
         messages.success(
             self.request,
-            'Статус успешно удален'
+            _("Status removed successfully")
         )
+        # Статус успешно удален
         return super().form_valid(form)

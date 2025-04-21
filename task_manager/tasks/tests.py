@@ -22,8 +22,8 @@ class TaskIntegrationTests(TestCase):
             username='user2',
             password='password123'
         )
-        self.status = Status.objects.create(name=_('Status1'))
-        self.label = Label.objects.create(name=_('Label1'))
+        self.status = Status.objects.create(name='Status1')
+        self.label = Label.objects.create(name='Label1')
 
         self.task_data = {
             'name': 'Test Task',
