@@ -10,7 +10,7 @@
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}  <!-- Автоматически рендерит поля формы -->
-    {% trans "Registration" as registration_text %}
+    {% trans "Registrate" as registration_text %}
     {% bootstrap_button registration_text button_type="submit" button_class="btn-primary" %}
 </form>
     </div>
