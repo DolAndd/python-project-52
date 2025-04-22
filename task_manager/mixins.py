@@ -11,11 +11,12 @@ class UserPassesMixin(UserPassesTestMixin):
     def handle_no_permission(self):
         if not self.request.user.is_authenticated:
             messages.error(
-                self.request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
+                self.request, _("You are not logged in! Please sign in."))
             # Вы не авторизованы! Пожалуйста, выполните вход.
             return redirect('login')
         messages.error(
-            self.request, 'У вас нет прав для изменения другого пользователя.')
+            self.request, _("You have no rights to change another user"))
+        # У вас нет прав для изменения другого пользователя.
         return redirect("user_index")
 
 
@@ -23,6 +24,6 @@ class UserLoginMixin(LoginRequiredMixin):
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             messages.error(
-                request, 'Вы не авторизованы! Пожалуйста, выполните вход.')
+                request, _("You are not logged in! Please sign in."))
             return self.handle_no_permission()
         return super().dispatch(request, *args, **kwargs)

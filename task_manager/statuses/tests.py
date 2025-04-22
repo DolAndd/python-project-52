@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from task_manager.statuses.models import Status
 from task_manager.tasks.models import Task
@@ -38,7 +39,7 @@ class StatusIntegrationTest(TestCase):
 
         # Проверяем сообщение об успехе
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Статус успешно создан')
+        self.assertEqual(str(messages[0]), _("Status created successfully"))
 
     def test_status_update_view(self):
         response = self.client.post(
@@ -53,7 +54,7 @@ class StatusIntegrationTest(TestCase):
 
         # Проверяем сообщение об успехе
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Статус успешно изменен')
+        self.assertEqual(str(messages[0]), _("Status changed successfully"))
 
     def test_status_delete_view(self):
         response = self.client.post(
@@ -66,7 +67,7 @@ class StatusIntegrationTest(TestCase):
 
         # Проверяем сообщение об успехе
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Статус успешно удален')
+        self.assertEqual(str(messages[0]), _("Status removed successfully"))
 
     def test_status_delete_protected(self):
         # Создаем задачу с этим статусом
@@ -88,7 +89,7 @@ class StatusIntegrationTest(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(
             str(messages[0]),
-            'Невозможно удалить статус, потому что он используется'
+            _("Cannot delete a status because it is in use")
         )
 
     def test_status_views_unauthenticated(self):

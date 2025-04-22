@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.messages import get_messages
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext as _
 
 from task_manager.labels.models import Label
 from task_manager.statuses.models import Status
@@ -78,7 +78,7 @@ class TaskIntegrationTests(TestCase):
         # Проверка сообщения об успехе
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'Задача успешно создана')
+        self.assertEqual(str(messages[0]), _("Task successfully created"))
 
     def test_task_update_view(self):
         self.client.login(username='user1', password='password123')
@@ -103,7 +103,7 @@ class TaskIntegrationTests(TestCase):
         # Проверка сообщения об успехе
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'Задача успешно изменена')
+        self.assertEqual(str(messages[0]), _("Task successfully updated"))
 
     def test_task_delete_view(self):
         self.client.login(username='user1', password='password123')
@@ -126,7 +126,7 @@ class TaskIntegrationTests(TestCase):
         # Проверка сообщения об успехе
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
-        self.assertEqual(str(messages[0]), 'Задача успешно удалена')
+        self.assertEqual(str(messages[0]), _("Task successfully deleted"))
 
     def test_task_delete_by_non_author(self):
         # Попытка удаления задачи не автором
@@ -144,7 +144,7 @@ class TaskIntegrationTests(TestCase):
         messages = list(get_messages(response.wsgi_request))
         self.assertEqual(len(messages), 1)
         self.assertEqual(str(messages[0]),
-                         'Задачу может удалить только ее автор')
+                         _("Only the author of the task can delete it"))
 
     def test_task_detail_view(self):
         self.client.login(username='user1', password='password123')

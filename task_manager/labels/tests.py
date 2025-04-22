@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.messages import get_messages
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.utils.translation import gettext as _
 
 from task_manager.labels.models import Label
 
@@ -39,7 +40,7 @@ class LabelIntegrationTest(TestCase):
 
         # Проверяем сообщение об успехе
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Метка успешно создана')
+        self.assertEqual(str(messages[0]), _("Label created successfully"))
 
     def test_label_update_view(self):
         response = self.client.post(
@@ -54,7 +55,7 @@ class LabelIntegrationTest(TestCase):
 
         # Проверяем сообщение об успехе
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Метка успешно изменена')
+        self.assertEqual(str(messages[0]), _("Label changed successfully"))
 
     def test_label_delete_view(self):
         response = self.client.post(
@@ -67,4 +68,4 @@ class LabelIntegrationTest(TestCase):
 
         # Проверяем сообщение об успехе
         messages = list(get_messages(response.wsgi_request))
-        self.assertEqual(str(messages[0]), 'Метка успешно удалена')
+        self.assertEqual(str(messages[0]), _("Label removed successfully"))

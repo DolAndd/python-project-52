@@ -1,11 +1,12 @@
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
-from django.utils.translation import gettext as _
 from django.shortcuts import redirect
+from django.urls import reverse_lazy
+from django.utils.translation import gettext as _
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from task_manager.mixins import UserPassesMixin
+from task_manager.tasks.models import Task
 from task_manager.user.forms import UserRegistrationForm
 
 
@@ -55,7 +56,10 @@ class UserDeleteView(UserPassesMixin, DeleteView):
 
     def form_valid(self, form):
         user = self.get_object()
-        if user.task_set.exists():  # Проверяем, есть ли связанные задачи
+        is_author = Task.objects.filter(author=user).exists()
+        is_executor = Task.objects.filter(executor=user).exists()
+
+        if is_author or is_executor:  # Проверяем, есть ли связанные задачи
             messages.error(
                 self.request,
                 _("Cannot delete user because they have associated tasks")

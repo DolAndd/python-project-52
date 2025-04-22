@@ -1,8 +1,8 @@
 from django.contrib import messages
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 from django.utils.translation import gettext as _
+from django.views.generic import CreateView, DeleteView, ListView, UpdateView
 
 from task_manager.labels.forms import LabelsForm
 from task_manager.labels.models import Label

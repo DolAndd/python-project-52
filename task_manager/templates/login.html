@@ -10,7 +10,8 @@
     <form method="post">
         {% csrf_token %}
         {% bootstrap_form form %}
-        {% bootstrap_button "Войти" button_type="submit" button_class="btn-primary" %}
+        {% trans "Login" as login_text %}
+        {% bootstrap_button login_text button_type="submit" button_class="btn-primary" %}
     </form>
 </div>
 {% endblock %}

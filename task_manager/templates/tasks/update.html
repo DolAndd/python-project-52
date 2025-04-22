@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
 
-      <h1 class="my-4">Изменение задачи</h1>
+      <h1 class="my-4">{% trans "Update task" %}</h1>
 
 <form method="post">
     {% csrf_token %}
     {% bootstrap_form form %}  <!-- Автоматически рендерит поля формы -->
-    {% bootstrap_button "Изменить" button_type="submit" button_class="btn-primary" %}
+    {% trans "Update" as update_text %}
+    {% bootstrap_button update_text button_type="submit" button_class="btn-primary" %}
 </form>
 
 {% endblock %}

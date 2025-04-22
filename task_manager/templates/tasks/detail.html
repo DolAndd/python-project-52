@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 {% extends "base.html" %}
 {% load django_bootstrap5 %}
+{% load i18n %}
 
 {% block content %}
 
-      <h1 class="my-4">Просмотр задачи</h1>
+      <h1 class="my-4">{% trans "Task information" %}</h1>
 
 <div class="card">
   <div class="card-header bg-secondary text-white">
@@ -15,11 +16,11 @@
     <hr>
     <div class="container">
       <div class="row p-1">
-        <div class="col">Автор</div>
+        <div class="col">{% trans "Author" %}</div>
         <div class="col">{{ object.author.first_name }} {{ object.author.last_name }}</div>
       </div>
       <div class="row p-1">
-        <div class="col">Исполнитель</div>
+        <div class="col">{% trans "Executor" %}</div>
         <div class="col">
           {% if object.executor %}
           {{ object.executor.first_name }} {{ object.executor.last_name }}
@@ -27,16 +28,16 @@
         </div>
       </div>
       <div class="row p-1">
-        <div class="col">Статус</div>
+        <div class="col">{% trans "Status" %}</div>
         <div class="col">{{ object.status }}</div>
       </div>
       <div class="row p-1">
-        <div class="col">Дата создания</div>
-        <div class="col">14.03.2025 04:33</div>
+        <div class="col">{% trans "Created at" %}</div>
+        <div class="col">object.created_at</div>
       </div>
       <div class="row p-1">
         <div class="col">
-          <h6>Метки:</h6>
+          <h6>{% trans "Labels" %}:</h6>
           {% if object.labels.all %}
           <ul>
           {% for label in object.labels.all %}
@@ -49,9 +50,9 @@
       </div>
       <div class="row p-1">
         <div class="col">
-          <a href="{% url 'task_update' object.id %}">Изменить</a>
+          <a href="{% url 'task_update' object.id %}">{% trans "Update" %}</a>
           <br>
-          <a href="{% url 'task_delete' object.id %}">Удалить</a>
+          <a href="{% url 'task_delete' object.id %}">{% trans "Delete" %}</a>
         </div>
       </div>
     </div>
