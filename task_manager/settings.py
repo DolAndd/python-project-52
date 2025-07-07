@@ -76,6 +76,10 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SOCIAL_AUTH_GITHUB_KEY = 'Iv23liNFZcplgkpKGSSH'
+SOCIAL_AUTH_GITHUB_SECRET = '6a1d6dad009712eab481d5492332fcd123521b61'
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
