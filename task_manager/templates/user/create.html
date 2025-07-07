@@ -5,13 +5,20 @@
 
 {% block content %}
 <div class="container wrapper flex-grow-1">
-      <h1 class="my-4">{% trans "Registration" %}</h1>
+    <h1 class="my-4">{% trans "Registration" %}</h1>
 
-<form method="post">
-    {% csrf_token %}
-    {% bootstrap_form form %}  <!-- Автоматически рендерит поля формы -->
-    {% trans "Registrate" as registration_text %}
-    {% bootstrap_button registration_text button_type="submit" button_class="btn-primary" %}
-</form>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% trans "Registrate" as registration_text %}
+        {% bootstrap_button registration_text button_type="submit" button_class="btn-primary" %}
+    </form>
+
+    <div class="mt-4">
+        <p class="text-center">{% trans "Or sign up with" %}</p>
+        <a href="{% url 'social:begin' 'github' %}" class="btn btn-dark d-block mx-auto" style="max-width: 200px;">
+            <i class="fab fa-github"></i> GitHub
+        </a>
     </div>
+</div>
 {% endblock %}

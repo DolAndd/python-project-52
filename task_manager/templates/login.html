@@ -13,5 +13,9 @@
         {% trans "Loginin" as login_text %}
         {% bootstrap_button login_text button_type="submit" button_class="btn-primary" %}
     </form>
+
+    <a href="{% url 'social:begin' 'github' %}" class="btn btn-dark">
+    <i class="fab fa-github"></i> Login with GitHub
+</a>
 </div>
 {% endblock %}

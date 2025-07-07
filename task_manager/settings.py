@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'task_manager.statuses',
     'task_manager.labels',
     'django_filters',
-    'django_bootstrap5'
+    'django_bootstrap5',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -69,6 +70,11 @@ ROOT_URLCONF = 'task_manager.urls'
 LOGIN_REDIRECT_URL = '/'  # После успешного входа
 LOGOUT_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
 
 TEMPLATES = [
     {
