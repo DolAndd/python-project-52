@@ -14,8 +14,11 @@
         {% bootstrap_button login_text button_type="submit" button_class="btn-primary" %}
     </form>
 
-    <a href="{% url 'social:begin' 'github' %}" class="btn btn-dark">
-    <i class="fab fa-github"></i> Login with GitHub
-</a>
+    <div class="mt-4">
+        <p class="text-center">{% trans "Or sign up with" %}</p>
+        <a href="{% url 'social:begin' 'github' %}" class="btn btn-dark d-block mx-auto" style="max-width: 200px;">
+            <i class="fab fa-github"></i> GitHub
+        </a>
+    </div>
 </div>
 {% endblock %}
