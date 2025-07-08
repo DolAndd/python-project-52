@@ -63,7 +63,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rollbar.contrib.django.middleware.RollbarNotifierMiddleware',
-    'django.contrib.staticfiles',
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -80,6 +79,10 @@ AUTHENTICATION_BACKENDS = (
 SOCIAL_AUTH_GITHUB_KEY = 'Iv23liNFZcplgkpKGSSH'
 SOCIAL_AUTH_GITHUB_SECRET = '6a1d6dad009712eab481d5492332fcd123521b61'
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Доп. папки со статикой (если есть)
 
 TEMPLATES = [
     {
@@ -161,7 +164,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = 'static/'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
