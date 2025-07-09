@@ -15,10 +15,19 @@
     </form>
 
     <div class="mt-4">
-        <p class="text-center">{% trans "Or sign up with" %}</p>
-        <a href="{% url 'social:begin' 'github' %}" class="btn btn-dark d-block mx-auto" style="max-width: 200px;">
-            <i class="fab fa-github"></i> GitHub
-        </a>
+    <p class="text-center">{% trans "Or sign up with" %}</p>
+    <div class="row justify-content-center g-3">  <!-- g-3 — отступы между колонками -->
+        <div class="col-md-5 col-12 text-center">  <!-- На мобильных — полная ширина -->
+            <a href="{% url 'social:begin' 'github' %}" class="btn btn-info w-100">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+        </div>
+        <div class="col-md-5 col-12 text-center">
+            <a href="{% url 'social:begin' 'yandex-oauth2' %}" class="btn btn-info w-100">
+                <i class="fab fa-yandex"></i> Yandex ID
+            </a>
+        </div>
     </div>
 </div>
+    </div>
 {% endblock %}

@@ -74,11 +74,18 @@ LOGIN_URL = '/login/'
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.yandex.YandexOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 )
 
 SOCIAL_AUTH_GITHUB_KEY = 'Iv23liNFZcplgkpKGSSH'
 SOCIAL_AUTH_GITHUB_SECRET = '6a1d6dad009712eab481d5492332fcd123521b61'
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
+
+SOCIAL_AUTH_YANDEX_KEY = 'fbe86e1e786d4bc6adcb39f912300f1a'
+SOCIAL_AUTH_YANDEX_SECRET = 'ac2264e109ab4dc2adefc14de116a7e1'
+SOCIAL_AUTH_YANDEX_SCOPE = ['login:email']  # Запрашиваем email пользователя
 SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 STATIC_URL = '/static/'
