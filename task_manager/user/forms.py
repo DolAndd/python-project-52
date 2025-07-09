@@ -7,25 +7,33 @@ from django.utils.translation import gettext_lazy as _
 class UserRegistrationForm(UserCreationForm):
     first_name = forms.CharField(
         label=_("First name"), max_length=100, required=True)
-    # по умолчанию необязательное поле, добавляем как обязательное
     last_name = forms.CharField(
         label=_("Surname"), max_length=100, required=True)
-    # label=_("Имя") указываем для перевода на русский язык в шаблоне
+    email = forms.EmailField(
+        label=_("Email"),
+        max_length=254,
+        required=True,
+        help_text=_("Required. Enter a valid email address.")
+    )
 
     class Meta:
         model = User
         fields = [
-            "first_name", "last_name", "username", "password1", "password2"]
+            "first_name", "last_name", "username", "email",
+            "password1", "password2"
+        ]
 
     def clean_username(self):
         username = self.cleaned_data['username']
-        # Исключаем текущего пользователя из проверки
-        # в случае редактирования пользователя
         if User.objects.exclude(
                 pk=self.instance.pk).filter(username=username).exists():
             raise forms.ValidationError(
                 _("A user with that username already exists."))
-        # Пользователь с таким именем уже существует
-        # выдает ошибку в случае создания
-        # нового пользователя с таким же username
         return username
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+            raise forms.ValidationError(
+                _("This email address is already in use."))
+        return email
