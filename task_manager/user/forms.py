@@ -33,7 +33,9 @@ class UserRegistrationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if User.objects.exclude(pk=self.instance.pk).filter(email=email).exists():
+        if (
+        User.objects.exclude(pk=self.instance.pk).filter(email=email).exists()
+        ):
             raise forms.ValidationError(
                 _("This email address is already in use."))
         return email
