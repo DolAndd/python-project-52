@@ -85,7 +85,7 @@ SOCIAL_AUTH_GITHUB_SCOPE = ['user:email']
 
 SOCIAL_AUTH_YANDEX_OAUTH2_KEY = 'fbe86e1e786d4bc6adcb39f912300f1a'
 SOCIAL_AUTH_YANDEX_OAUTH2_SECRET = 'ac2264e109ab4dc2adefc14de116a7e1'
-SOCIAL_AUTH_YANDEX_OAUTH2_SCOPE = ['login:email']
+SOCIAL_AUTH_YANDEX_OAUTH2_SCOPE = ['login:email', 'login:info']
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
