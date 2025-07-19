@@ -99,7 +99,7 @@ SOCIAL_AUTH_PIPELINE = (
     'social_core.pipeline.social_auth.associate_user',
     'social_core.pipeline.social_auth.load_extra_data',
     'social_core.pipeline.user.user_details',
-    'path.to.your.custom_pipeline',  # Ваш кастомный pipeline
+    'task_manager.pipeline.get_username',  # Ваш кастомный pipeline
 )
 
 SESSION_COOKIE_SECURE = True
