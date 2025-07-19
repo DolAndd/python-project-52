@@ -16,17 +16,26 @@
 
     <div class="mt-4">
     <p class="text-center">{% trans "Or sign up with" %}</p>
-    <div class="row justify-content-center g-3">  <!-- g-3 — отступы между колонками -->
-        <div class="col-md-5 col-12 text-center">  <!-- На мобильных — полная ширина -->
-            <a href="{% url 'social:begin' 'github' %}" class="btn btn-info w-100">
-                <i class="fab fa-github"></i> GitHub
-            </a>
-        </div>
-        <div class="col-md-5 col-12 text-center">
-            <a href="{% url 'social:begin' 'yandex-oauth2' %}" class="btn btn-info w-100">
-                <i class="fab fa-yandex"></i> Yandex ID
-            </a>
-        </div>
+    <div class="d-flex justify-content-center gap-4">
+        <!-- GitHub Icon -->
+        <a href="{% url 'social:begin' 'github' %}" class="position-relative d-block" style="width: 50px; height: 50px;" title="GitHub">
+            <img alt="GitHub icon"
+                 fetchpriority="high"
+                 decoding="async"
+                 class="object-contain mix-blend-multiply w-100 h-100"
+                 src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+                 style="position: absolute; inset: 0; color: transparent;">
+        </a>
+
+        <!-- Yandex Icon -->
+        <a href="{% url 'social:begin' 'yandex-oauth2' %}" class="position-relative d-block" style="width: 50px; height: 50px;" title="Yandex">
+            <img alt="Yandex icon"
+                 fetchpriority="high"
+                 decoding="async"
+                 class="object-contain mix-blend-multiply w-100 h-100"
+                 src="https://cdn-icons-png.freepik.com/256/12452/12452456.png"
+                 style="position: absolute; inset: 0; color: transparent;">
+        </a>
     </div>
 </div>
     </div>
