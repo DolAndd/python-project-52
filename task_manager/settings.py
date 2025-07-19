@@ -89,6 +89,22 @@ SOCIAL_AUTH_YANDEX_OAUTH2_SCOPE = ['login:email', 'login:info']
 SOCIAL_AUTH_YANDEX_OAUTH2_AUTH_EXTRA_ARGUMENTS = {'force_confirm': '1'}
 SOCIAL_AUTH_YANDEX_OAUTH2_EXTRA_DATA = ['login', 'email', 'display_name']
 
+SOCIAL_AUTH_PIPELINE = (
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'path.to.your.custom_pipeline',  # Ваш кастомный pipeline
+)
+
+SESSION_COOKIE_SECURE = True
+SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Доп. папки со статикой (если есть)
